@@ -1,0 +1,28 @@
+#!/bin/bash
+#!/bin/bash
+#PBS -P r16
+#PBS -q gpuvolta
+#PBS -l ngpus=1
+#PBS -l ncpus=12
+#PBS -l storage=scratch/f91
+#PBS -m abe
+#PBS -l walltime=48:00:00
+#PBS -l mem=8GB
+#PBS -l wd
+#PBS -M yearlyboozefest@gmail.com
+
+
+module load namd/2.14
+module load vmd/1.9.3
+
+cd $PBS_O_WORKDIR
+
+namd2-node-gpu +p12 glob0.conf | tee glob0.conf.log
+vmd -dispdev text -e equilibration_restarints.tcl
+namd2-node-gpu +p12 glob1.conf | tee glob1.conf.log
+namd2-node-gpu +p12 glob2.conf | tee glob2.conf.log
+namd2-node-gpu +p12 glob3.conf | tee glob3.conf.log
+
+source $HOME/.bashrc
+nsub glob1.pbs
+

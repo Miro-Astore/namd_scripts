@@ -24,7 +24,7 @@ z_len = np.int(np.ceil(z_max - z_min))
 
 boxsize = [x_len, y_len, z_len ]
 
-origin =  ((all_sel.atoms.center_of_mass())) * 10  # conversion to Angstrom
+origin =  ((all_sel.atoms.center_of_mass())) 
 
 print ("cellBasisVector1		{}	0	0".format(boxsize[0]))
 print ("cellBasisVector2		0	{}	0".format(boxsize[1]))

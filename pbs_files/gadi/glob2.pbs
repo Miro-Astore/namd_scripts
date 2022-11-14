@@ -1,0 +1,22 @@
+#!/bin/bash
+#!/bin/bash
+#PBS -P r16
+#PBS -q gpuvolta
+#PBS -l ngpus=1
+#PBS -l ncpus=12
+#PBS -l storage=scratch/f91
+#PBS -m abe
+#PBS -l walltime=48:00:00
+#PBS -l mem=8GB
+#PBS -l wd
+#PBS -M yearlyboozefest@gmail.com
+
+
+module load namd/2.14
+
+cd $PBS_O_WORKDIR
+
+namd2-node-gpu +p12 glob_prod2.conf | tee glob_prod2.conf.log
+
+source $HOME/.bashrc
+nsub glob3.pbs
